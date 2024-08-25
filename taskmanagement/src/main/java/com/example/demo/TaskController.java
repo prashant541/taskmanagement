@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/api")
 public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping
+    @PostMapping("/tasks")
     public Task createTask(@RequestBody Task task) {
     	LocalDateTime date=LocalDateTime.now();
     	 task.setDueDate(date);;
@@ -20,14 +20,14 @@ public class TaskController {
         return taskService.createTask(task);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/tasks/{id}")
     public Task getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id);
     }
 
    
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/tasks/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
     }
@@ -37,7 +37,7 @@ public class TaskController {
         return taskService.getTasksByUserId(userId);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/task/search")
     public List<Task> searchTasksByTitle(@RequestParam String title) {
         return taskService.searchTasksByTitle(title);
     }
